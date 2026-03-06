@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ตะกร้าสินค้า - NT SHOP">
+  <title>ตะกร้าสินค้า - NT SHOP</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen">
+  <div class="fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-dark-900"></div>
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary-600/10 rounded-full blur-[128px] animate-glow-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-accent-600/10 rounded-full blur-[128px] animate-glow-pulse" style="animation-delay:0.3s;"></div>
+  </div>
+
+  <%- include('partials/header') %>
+
+  <main class="pt-20">
+    <section class="py-12">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="animate-fade-in-up">
+          <h1 class="section-heading mb-2">
+            ตะกร้า <span class="gradient-text">สินค้า</span>
+          </h1>
+          <p class="text-gray-500 mb-10">รายการสินค้าที่คุณเลือก</p>
+        </div>
+
+        <div id="cart-container">
+          <div id="cart-empty" class="text-center py-24 hidden">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-white/5 flex items-center justify-center">
+              <svg class="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+              </svg>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-white mb-3">ตะกร้าว่างเปล่า</h3>
+            <p class="text-gray-500 mb-8">ยังไม่มีสินค้าในตะกร้า เริ่มช้อปกันเลย!</p>
+            <a href="/products" class="btn-primary">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+              ดูสินค้าทั้งหมด
+            </a>
+          </div>
+
+          <div id="cart-items" class="space-y-4 mb-8"></div>
+
+          <div id="cart-summary" class="hidden">
+            <div class="divider-glow my-8"></div>
+            <div class="card-glass p-8">
+              <h3 class="font-display text-xl font-bold text-white mb-6">สรุปคำสั่งซื้อ</h3>
+              <div class="space-y-4">
+                <div class="flex justify-between text-gray-400">
+                  <span>ราคาสินค้า</span>
+                  <span id="cart-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between text-gray-400">
+                  <span>ส่วนลด</span>
+                  <span class="text-emerald-400" id="cart-discount">-$0.00</span>
+                </div>
+                <div class="divider-glow"></div>
+                <div class="flex justify-between text-white text-lg font-bold">
+                  <span>ราคารวม</span>
+                  <span class="gradient-text text-2xl" id="cart-total">$0.00</span>
+                </div>
+              </div>
+              <button class="btn-primary w-full mt-8 text-lg" onclick="checkout()">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+                ดำเนินการชำระเงิน
+              </button>
+              <p class="text-center text-gray-600 text-sm mt-4">🔒 ชำระเงินอย่างปลอดภัย</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!-- Navigation -->
+<nav class="glass-nav" id="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-glow group-hover:shadow-glow-lg transition-all duration-300">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <span class="font-display text-xl font-bold tracking-tight">
+          <span class="text-white">NT</span>
+          <span class="gradient-text"> SHOP</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="/" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 <%= page === 'home' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+          หน้าแรก
+        </a>
+        <a href="/products" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 <%= page === 'products' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+          สินค้า
+        </a>
+        <a href="/about" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 <%= page === 'about' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+          เกี่ยวกับเรา
+        </a>
+        <a href="/contact" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 <%= page === 'contact' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+          ติดต่อ
+        </a>
+      </div>
+
+      <!-- Right Section -->
+      <div class="flex items-center gap-4">
+        <!-- Cart Button -->
+        <a href="/cart" class="relative group p-2 rounded-xl transition-all duration-300 hover:bg-white/5" id="cart-nav-btn">
+          <svg class="w-6 h-6 text-gray-400 group-hover:text-primary-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+          </svg>
+          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary-500 text-white text-xs font-bold rounded-full flex items-center justify-center shadow-glow cart-count hidden" id="cart-count">0</span>
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden p-2 rounded-xl hover:bg-white/5 transition-all" id="mobile-menu-btn">
+          <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" id="menu-icon-open"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="md:hidden hidden border-t border-white/5" id="mobile-menu">
+    <div class="px-4 py-4 space-y-1">
+      <a href="/" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= page === 'home' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+        หน้าแรก
+      </a>
+      <a href="/products" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= page === 'products' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+        สินค้า
+      </a>
+      <a href="/about" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= page === 'about' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+        เกี่ยวกับเรา
+      </a>
+      <a href="/contact" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= page === 'contact' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+        ติดต่อ
+      </a>
+    </div>
+  </div>
+</nav>

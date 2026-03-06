@@ -1,0 +1,28 @@
+{
+  "name": "nt-shop",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./public/css/style.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o ./public/css/style.css --watch",
+    "dev": "concurrently \"npm run watch:css\" \"npm run server\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.19"
+  }
+}
