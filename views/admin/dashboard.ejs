@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - NT SHOP Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen">
+  <div class="fixed inset-0 -z-10 bg-dark-900">
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-primary-600/5 rounded-full blur-[128px]"></div>
+  </div>
+
+  <%- include('../partials/header', { page: 'admin' }) %>
+
+  <main class="pt-24 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Admin Sidebar -->
+        <div class="w-full md:w-64 flex-shrink-0">
+          <div class="card-glass p-6">
+            <h2 class="font-display text-lg font-bold text-white mb-6 uppercase tracking-wider">Admin Menu</h2>
+            <nav class="space-y-2">
+              <a href="/admin" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium <%= path === '/admin' ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Dashboard
+              </a>
+              <a href="/admin/products" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium <%= path.includes('/admin/products') ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                Manage Products
+              </a>
+              <a href="/admin/users" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium <%= path.includes('/admin/users') ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                Manage Users
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+          <div class="mb-8">
+            <h1 class="text-3xl font-display font-bold text-white mb-2"><%= title %></h1>
+            <p class="text-gray-400">ภาพรวมระบบและการจัดการ</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card-glass p-8 flex items-center justify-between">
+              <div>
+                <p class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Total Products</p>
+                <h3 class="text-4xl font-bold font-display text-white"><%= productCount %></h3>
+              </div>
+              <div class="w-16 h-16 rounded-2xl bg-primary-500/20 flex items-center justify-center border border-primary-500/30">
+                <svg class="w-8 h-8 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+              </div>
+            </div>
+
+            <div class="card-glass p-8 flex items-center justify-between">
+              <div>
+                <p class="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Total Users</p>
+                <h3 class="text-4xl font-bold font-display text-white"><%= userCount %></h3>
+              </div>
+              <div class="w-16 h-16 rounded-2xl bg-accent-500/20 flex items-center justify-center border border-accent-500/30">
+                <svg class="w-8 h-8 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+</body>
+</html>

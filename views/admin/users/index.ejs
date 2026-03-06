@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - NT SHOP Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen">
+  <div class="fixed inset-0 -z-10 bg-dark-900">
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-primary-600/5 rounded-full blur-[128px]"></div>
+  </div>
+
+  <%- include('../../partials/header', { page: 'admin' }) %>
+
+  <main class="pt-24 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8">
+        
+        <!-- Admin Sidebar -->
+        <div class="w-full md:w-64 flex-shrink-0">
+          <div class="card-glass p-6">
+            <h2 class="font-display text-lg font-bold text-white mb-6 uppercase tracking-wider">Admin Menu</h2>
+            <nav class="space-y-2">
+              <a href="/admin" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium text-gray-400 hover:text-white hover:bg-white/5">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Dashboard
+              </a>
+              <a href="/admin/products" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium text-gray-400 hover:text-white hover:bg-white/5">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                Manage Products
+              </a>
+              <a href="/admin/users" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium bg-primary-500/10 text-primary-400 border border-primary-500/20">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                Manage Users
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+          <div class="mb-8">
+            <h1 class="text-3xl font-display font-bold text-white mb-2"><%= title %></h1>
+            <p class="text-gray-400">จัดการข้อมูลผู้ใช้งานในระบบ</p>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-white/10 text-gray-400 text-sm uppercase tracking-wider bg-white/5">
+                    <th class="py-4 px-6 font-medium">ชื่อผู้ใช้</th>
+                    <th class="py-4 px-6 font-medium">อีเมล</th>
+                    <th class="py-4 px-6 font-medium">บทบาท (Role)</th>
+                    <th class="py-4 px-6 font-medium">วันที่สมัคร</th>
+                    <th class="py-4 px-6 font-medium text-right">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5 text-sm">
+                  <% if (users && users.length > 0) { %>
+                    <% users.forEach(u => { %>
+                      <tr class="hover:bg-white/5 transition-colors group">
+                        <td class="py-4 px-6 text-white font-medium"><%= u.username %></td>
+                        <td class="py-4 px-6 text-gray-400"><%= u.email %></td>
+                        <td class="py-4 px-6">
+                          <% if (u.role === 'admin') { %>
+                            <span class="px-3 py-1 bg-primary-500/10 text-primary-400 border border-primary-500/20 rounded-full text-xs font-medium">Admin</span>
+                          <% } else { %>
+                            <span class="px-3 py-1 bg-white/10 text-gray-300 border border-white/20 rounded-full text-xs font-medium">User</span>
+                          <% } %>
+                        </td>
+                        <td class="py-4 px-6 text-gray-400"><%= new Date(u.createdAt).toLocaleDateString('th-TH') %></td>
+                        <td class="py-4 px-6">
+                          <div class="flex items-center justify-end gap-3">
+                            <% if (u._id.toString() !== user.id) { %>
+                              <form action="/admin/users/<%= u._id %>/role?_method=PUT" method="POST" class="inline">
+                                <input type="hidden" name="role" value="<%= u.role === 'admin' ? 'user' : 'admin' %>">
+                                <button type="submit" class="text-xs font-medium <%= u.role === 'admin' ? 'text-orange-400 hover:text-orange-300' : 'text-emerald-400 hover:text-emerald-300' %> transition-colors" title="เปลี่ยนบทบาท">
+                                  <%= u.role === 'admin' ? 'Demote to User' : 'Promote to Admin' %>
+                                </button>
+                              </form>
+                              
+                              <span class="text-white/20">|</span>
+
+                              <form action="/admin/users/<%= u._id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('ยืนยันการลบผู้ใช้นี้อย่างถาวรใช่หรือไม่?');">
+                                <button type="submit" class="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="ลบผู้ใช้">
+                                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                </button>
+                              </form>
+                            <% } else { %>
+                              <span class="text-xs text-gray-500 italic">This is you</span>
+                            <% } %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="5" class="py-12 text-center text-gray-500">
+                        ไม่พบข้อมูลผู้ใช้
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <%- include('../../partials/footer') %>
+</body>
+</html>

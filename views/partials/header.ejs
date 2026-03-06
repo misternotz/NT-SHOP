@@ -33,6 +33,30 @@
 
       <!-- Right Section -->
       <div class="flex items-center gap-4">
+        <!-- Auth Desktop -->
+        <div class="hidden md:flex items-center gap-2">
+          <% if (user) { %>
+            <div class="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-primary-400">
+              <span class="text-white text-xs mr-1">Hi,</span><%= user.username %>
+            </div>
+            <% if (user.role === 'admin') { %>
+              <a href="/admin" class="px-3 py-1.5 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-white/5 transition-all">
+                Admin
+              </a>
+            <% } %>
+            <a href="/auth/logout" class="px-3 py-1.5 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-white/5 transition-all">
+              <svg class="w-4 h-4 inline-block -mt-1 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+              Logout
+            </a>
+          <% } else { %>
+            <a href="/auth/login" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+              เข้าสู่ระบบ
+            </a>
+            <a href="/auth/register" class="px-4 py-2 rounded-lg text-sm font-medium bg-primary-500 text-white hover:bg-primary-600 shadow-glow transition-all">
+              สมัครสมาชิก
+            </a>
+          <% } %>
+        </div>
         <!-- Cart Button -->
         <a href="/cart" class="relative group p-2 rounded-xl transition-all duration-300 hover:bg-white/5" id="cart-nav-btn">
           <svg class="w-6 h-6 text-gray-400 group-hover:text-primary-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,9 +87,32 @@
       <a href="/about" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= page === 'about' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
         เกี่ยวกับเรา
       </a>
-      <a href="/contact" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= page === 'contact' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+      <a href="/contact" class="block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 <%= typeof page !== 'undefined' && page === 'contact' ? 'text-white bg-white/10' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
         ติดต่อ
       </a>
+      
+      <!-- Mobile Auth -->
+      <div class="my-2 border-t border-white/10"></div>
+      <% if (user) { %>
+        <div class="block px-4 py-3 rounded-xl text-sm font-medium text-primary-400 bg-white/5 mb-2">
+          <span class="text-gray-400 text-xs mr-1">บัญชีผู้ใช้:</span> <%= user.username %>
+        </div>
+        <% if (user.role === 'admin') { %>
+          <a href="/admin" class="block px-4 py-3 rounded-xl text-sm font-medium text-emerald-400 hover:bg-white/5 transition-all">
+            จัดการระบบ (Admin)
+          </a>
+        <% } %>
+        <a href="/auth/logout" class="block px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-white/5 transition-all">
+          ออกจากระบบ
+        </a>
+      <% } else { %>
+        <a href="/auth/login" class="block px-4 py-3 rounded-xl text-sm font-medium text-gray-400 hover:bg-white/5 transition-all mb-1">
+          เข้าสู่ระบบ
+        </a>
+        <a href="/auth/register" class="block px-4 py-3 rounded-xl text-sm font-medium bg-primary-500/10 text-primary-400 border border-primary-500/20 hover:bg-primary-500/20 transition-all text-center">
+          สมัครสมาชิก
+        </a>
+      <% } %>
     </div>
   </div>
 </nav>

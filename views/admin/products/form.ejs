@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - NT SHOP Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen">
+  <div class="fixed inset-0 -z-10 bg-dark-900">
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-primary-600/5 rounded-full blur-[128px]"></div>
+  </div>
+
+  <%- include('../../partials/header', { page: 'admin' }) %>
+
+  <main class="pt-24 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8">
+        
+        <!-- Admin Sidebar -->
+        <div class="w-full md:w-64 flex-shrink-0">
+          <div class="card-glass p-6">
+            <h2 class="font-display text-lg font-bold text-white mb-6 uppercase tracking-wider">Admin Menu</h2>
+            <!-- Same sidebar... omitted code duplication by manually inserting it later, let's keep it complete here for simplicity -->
+            <nav class="space-y-2">
+              <a href="/admin" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium text-gray-400 hover:text-white hover:bg-white/5">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Dashboard
+              </a>
+              <a href="/admin/products" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium bg-primary-500/10 text-primary-400 border border-primary-500/20">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                Manage Products
+              </a>
+              <a href="/admin/users" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium text-gray-400 hover:text-white hover:bg-white/5">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                Manage Users
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+          <div class="mb-8 flex items-center justify-between">
+            <div>
+              <h1 class="text-3xl font-display font-bold text-white mb-2"><%= title %></h1>
+              <p class="text-gray-400">กรอกข้อมูลรายละเอียดสินค้า</p>
+            </div>
+            <a href="/admin/products" class="px-4 py-2 rounded-lg text-sm font-medium border border-white/10 text-gray-300 hover:text-white hover:bg-white/5 transition-all">กลับหน้ารวมสินค้า</a>
+          </div>
+
+          <div class="card-glass p-8">
+            <% const actionUrl = product._id ? `/admin/products/${product._id}?_method=PUT` : `/admin/products`; %>
+            <form action="<%= actionUrl %>" method="POST" class="space-y-6">
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-gray-300 mb-2">ชื่อสินค้า *</label>
+                  <input type="text" id="name" name="name" required value="<%= product.name || '' %>"
+                    class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans">
+                </div>
+                <div>
+                  <label for="category" class="block text-sm font-medium text-gray-300 mb-2">หมวดหมู่ *</label>
+                  <input type="text" id="category" name="category" required value="<%= product.category || '' %>"
+                    class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="price" class="block text-sm font-medium text-gray-300 mb-2">ราคา (บาท) *</label>
+                  <input type="number" id="price" name="price" required min="0" step="0.01" value="<%= product.price || '' %>"
+                    class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans">
+                </div>
+                <div>
+                  <label for="stock" class="block text-sm font-medium text-gray-300 mb-2">จำนวนสต็อก *</label>
+                  <input type="number" id="stock" name="stock" required min="0" value="<%= product.stock || 0 %>"
+                    class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans">
+                </div>
+              </div>
+
+              <div>
+                <label for="imageUrl" class="block text-sm font-medium text-gray-300 mb-2">URL รูปภาพ *</label>
+                <input type="text" id="imageUrl" name="imageUrl" required value="<%= product.imageUrl || '' %>"
+                  class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans"
+                  placeholder="https://example.com/image.png">
+              </div>
+
+              <div>
+                <label for="description" class="block text-sm font-medium text-gray-300 mb-2">รายละเอียดสินค้า *</label>
+                <textarea id="description" name="description" required rows="5"
+                  class="w-full bg-dark-800 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-sans"><%= product.description || '' %></textarea>
+              </div>
+
+              <div class="pt-4 flex justify-end">
+                <button type="submit" class="btn-primary">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                  บันทึกข้อมูล
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <%- include('../../partials/footer') %>
+</body>
+</html>

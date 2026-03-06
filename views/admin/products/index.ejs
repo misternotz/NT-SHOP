@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - NT SHOP Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="min-h-screen">
+  <div class="fixed inset-0 -z-10 bg-dark-900">
+    <div class="absolute top-0 right-1/4 w-96 h-96 bg-primary-600/5 rounded-full blur-[128px]"></div>
+  </div>
+
+  <%- include('../../partials/header', { page: 'admin' }) %>
+
+  <main class="pt-24 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8">
+        
+        <!-- Admin Sidebar -->
+        <div class="w-full md:w-64 flex-shrink-0">
+          <div class="card-glass p-6">
+            <h2 class="font-display text-lg font-bold text-white mb-6 uppercase tracking-wider">Admin Menu</h2>
+            <nav class="space-y-2">
+              <a href="/admin" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium <%= path === '/admin' ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Dashboard
+              </a>
+              <a href="/admin/products" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium <%= path.includes('/admin/products') ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                Manage Products
+              </a>
+              <a href="/admin/users" class="flex items-center px-4 py-3 rounded-xl transition-all font-medium <%= path.includes('/admin/users') ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'text-gray-400 hover:text-white hover:bg-white/5' %>">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                Manage Users
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1">
+          <div class="mb-8 flex justify-between items-end">
+            <div>
+              <h1 class="text-3xl font-display font-bold text-white mb-2"><%= title %></h1>
+              <p class="text-gray-400">จัดการข้อมูลสินค้าที่มีในระบบ</p>
+            </div>
+            <a href="/admin/products/new" class="btn-primary">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              เพิ่มสินค้าใหม่
+            </a>
+          </div>
+
+          <div class="card-glass overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-white/10 text-gray-400 text-sm uppercase tracking-wider bg-white/5">
+                    <th class="py-4 px-6 font-medium">รูปภาพ</th>
+                    <th class="py-4 px-6 font-medium">ชื่อสินค้า</th>
+                    <th class="py-4 px-6 font-medium">ราคา</th>
+                    <th class="py-4 px-6 font-medium">หมวดหมู่</th>
+                    <th class="py-4 px-6 font-medium">สต็อก</th>
+                    <th class="py-4 px-6 font-medium text-right">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5 text-sm">
+                  <% if (products && products.length > 0) { %>
+                    <% products.forEach(product => { %>
+                      <tr class="hover:bg-white/5 transition-colors group">
+                        <td class="py-4 px-6">
+                          <img src="<%= product.imageUrl %>" alt="<%= product.name %>" class="w-12 h-12 rounded-lg object-cover border border-white/10">
+                        </td>
+                        <td class="py-4 px-6 text-white font-medium"><%= product.name %></td>
+                        <td class="py-4 px-6 text-emerald-400 font-medium">฿<%= product.price.toLocaleString() %></td>
+                        <td class="py-4 px-6 text-gray-400"><%= product.category %></td>
+                        <td class="py-4 px-6">
+                          <% if (product.stock > 0) { %>
+                            <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-md text-xs"><%= product.stock %> ชิ้น</span>
+                          <% } else { %>
+                            <span class="px-2 py-1 bg-red-500/10 text-red-400 border border-red-500/20 rounded-md text-xs">หมดสต็อก</span>
+                          <% } %>
+                        </td>
+                        <td class="py-4 px-6 text-right">
+                          <div class="flex items-center justify-end gap-2">
+                            <a href="/admin/products/<%= product._id %>/edit" class="p-2 text-gray-400 hover:text-primary-400 hover:bg-primary-500/10 rounded-lg transition-all" title="แก้ไข">
+                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                            </a>
+                            <form action="/admin/products/<%= product._id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('ยืนยันการลบสินค้านี้ใช่หรือไม่?');">
+                              <button type="submit" class="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="ลบ">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                              </button>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  <% } else { %>
+                    <tr>
+                      <td colspan="6" class="py-12 text-center text-gray-500">
+                        ยังไม่มีสินค้าในระบบ 
+                      </td>
+                    </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <%- include('../../partials/footer') %>
+</body>
+</html>
